@@ -1,0 +1,38 @@
+
+-- SQL Query for Total Suitable Buildings in California
+SELECT
+  state_name,
+  SUM(count_qualified) AS Total_Suitable_Buildings_California
+FROM
+  `bigquery-public-data.sunroof_solar.solar_potential_by_postal_code` sp
+WHERE
+  sp.state_name = 'California'
+GROUP BY
+  sp.state_name;
+
+-- SQL Query for Dollars Saved Per Year in California
+SELECT
+  state_name,
+  ROUND(SUM(yearly_sunlight_kwh_total) * <Your Conversion Rate> * <Your Energy Cost>, 2) AS Dollars_Saved_Per_Year_California
+FROM
+  `bigquery-public-data.sunroof_solar.solar_potential_by_postal_code` sp
+WHERE
+  sp.state_name = 'California'
+GROUP BY
+  sp.state_name;
+
+-- SQL Query for Net Profit Calculation and ROI Percentage in California
+SELECT
+  state_name,
+  ROUND(SUM(yearly_sunlight_kwh_total) * <Your Conversion Rate> * <Your Energy Cost>, 2) AS Dollars_Saved_Per_Year_California,
+  ROUND(SUM(yearly_sunlight_kwh_total) * <Your Conversion Rate> * <Your Energy Cost>, 2) - (<Your Number of Buildings> * <Your Cost per Installation>) AS Net_Profit_California,
+  ROUND((Net_Profit_California / (<Your Number of Buildings> * <Your Cost per Installation>)) * 100, 2) AS ROI_Percentage_California
+FROM
+  `bigquery-public-data.sunroof_solar.solar_potential_by_postal_code` sp
+WHERE
+  sp.state_name = 'California'
+GROUP BY
+  sp.state_name;
+
+
+Replace `<Your Conversion Rate>`, `<Your Energy Cost>`, `<Your Number of Buildings>`, and `<Your Energy Cost>`, `<Your Number of Buildings>`, and `<Your Cost per Installation>` with the appropriate values for your specific analysis.
